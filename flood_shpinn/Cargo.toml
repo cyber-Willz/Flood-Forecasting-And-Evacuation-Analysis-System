@@ -1,0 +1,26 @@
+[package]
+name = "flood_shpinn"
+version = "0.5.0"
+edition = "2021"
+rust-version = "1.75"
+description = "Flood forecasting + evacuation-window analysis on a GIS-derived spectral hypergraph, using shpinn (physics-informed neural network on the hypergraph Laplacian)."
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+shpinn = { path = "../shpinn", optional = true }
+spectral_hypergraph = { path = "../spectral_hypergraph" }
+nalgebra = "0.32"
+burn = { version = "0.13", default-features = false, features = ["ndarray", "autodiff", "std"], optional = true }
+
+[features]
+# `nn` (default) = the SHPINN neural surrogate (floodnet + flood_demo). Build with `--no-default-features` for the
+# physics-only stack (catchment, truth, evac, calib, river) which needs no Burn and compiles in seconds.
+default = ["nn"]
+nn = ["dep:shpinn", "dep:burn"]
+
+[[example]]
+name = "flood_demo"
+required-features = ["nn"]
+
+[[example]]
+name = "river_eval"

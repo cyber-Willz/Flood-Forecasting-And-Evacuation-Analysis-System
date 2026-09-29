@@ -1,0 +1,132 @@
+{
+ "0": {
+  "marks": 16,
+  "q_peak": 8892.0,
+  "t_peak_h": 5.5,
+  "stage_m": 10.291,
+  "wse_bias_old": 2.5128749999999727,
+  "wse_rmse_old": 3.027014421769371,
+  "wse_bias_surface": 0.8110000000000426,
+  "wse_rmse_surface": 2.699844105610534,
+  "wse_rmse_zero": 3.132402326027091,
+  "oracle_stage_m": 9.480000000000011,
+  "wse_rmse_oracle_uniform": 2.5751577028601322,
+  "mark_hit_gt0p1": 0.8125,
+  "AUC": {
+   "model": 0.9793534512600388,
+   "low_elevation": 0.9795416782054832,
+   "HAND9": 0.9873087441152035
+  },
+  "mark_rank": {
+   "model": 0.7023511904761905,
+   "low_elevation": 0.7266071428571428,
+   "HAND9": 0.7069047619047619
+  },
+  "csi": 0.6674057649667405,
+  "pod": 0.9585987261146497,
+  "far": 0.3127853881278539,
+  "ref_wet": 314,
+  "pred_wet": 438
+ },
+ "1": {
+  "marks": 15,
+  "q_peak": 8702.4,
+  "t_peak_h": 7.35,
+  "stage_m": 11.597,
+  "wse_bias_old": 2.414229333333314,
+  "wse_rmse_old": 2.694587142907032,
+  "wse_bias_surface": 2.4142293333332985,
+  "wse_rmse_surface": 2.6945871429070203,
+  "wse_rmse_zero": 3.8839865140582988,
+  "oracle_stage_m": 9.18277066666668,
+  "wse_rmse_oracle_uniform": 1.1967859444332032,
+  "mark_hit_gt0p1": 1.0,
+  "AUC": {
+   "model": 0.9847420634920635,
+   "low_elevation": 0.9547949735449736,
+   "HAND9": 0.9066964285714286
+  },
+  "mark_rank": {
+   "model": 0.7551096246748421,
+   "low_elevation": 0.7190635451505016,
+   "HAND9": 0.654180602006689
+  },
+  "csi": 0.439453125,
+  "pod": 1.0,
+  "far": 0.560546875,
+  "ref_wet": 225,
+  "pred_wet": 512
+ },
+ "2": {
+  "marks": 11,
+  "q_peak": 8811.6,
+  "t_peak_h": 6.3,
+  "stage_m": 10.127,
+  "wse_bias_old": 4.427370909090872,
+  "wse_rmse_old": 5.464457521308182,
+  "wse_bias_surface": 2.9780981818181234,
+  "wse_rmse_surface": 3.2428908072329596,
+  "wse_rmse_zero": 4.6500526740320565,
+  "oracle_stage_m": 7.14890181818184,
+  "wse_rmse_oracle_uniform": 1.2834609487972861,
+  "mark_hit_gt0p1": 1.0,
+  "AUC": {
+   "model": 0.9961328228733292,
+   "low_elevation": 0.9753419049305125,
+   "HAND9": 0.9836626980614323
+  },
+  "mark_rank": {
+   "model": 0.7579078455790783,
+   "low_elevation": 0.7188667496886674,
+   "HAND9": 0.6958904109589041
+  },
+  "csi": 0.5096774193548387,
+  "pod": 1.0,
+  "far": 0.49032258064516127,
+  "ref_wet": 158,
+  "pred_wet": 310
+ },
+ "3": {
+  "marks": 10,
+  "q_peak": 8763.3,
+  "t_peak_h": 6.8,
+  "stage_m": 12.433,
+  "wse_bias_old": 4.400491999999991,
+  "wse_rmse_old": 4.481961752857774,
+  "wse_bias_surface": 4.400491999999991,
+  "wse_rmse_surface": 4.481961752857774,
+  "wse_rmse_zero": 2.563134224749076,
+  "oracle_stage_m": 8.032508000000007,
+  "wse_rmse_oracle_uniform": 0.8506769727787385,
+  "mark_hit_gt0p1": 1.0,
+  "AUC": {
+   "model": 0.9938588925306193,
+   "low_elevation": 0.975751825656949,
+   "HAND9": 0.9743775516071531
+  },
+  "mark_rank": {
+   "model": 0.7662011173184358,
+   "low_elevation": 0.762709497206704,
+   "HAND9": 0.7154329608938547
+  },
+  "csi": 0.39641943734015345,
+  "pod": 1.0,
+  "far": 0.6035805626598465,
+  "ref_wet": 155,
+  "pred_wet": 391
+ },
+ "4": {
+  "marks": 8,
+  "q_peak": 8554.9,
+  "t_peak_h": 8.25,
+  "stage_m": 10.118,
+  "wse_bias_old": 1.96120999999998,
+  "wse_rmse_old": 2.3346902826713247,
+  "wse_bias_surface": 1.9612099999999728,
+  "wse_rmse_surface": 2.3346902826713194,
+  "wse_rmse_zero": 2.8656946602874647,
+  "oracle_stage_m": 8.156790000000022,
+  "wse_rmse_oracle_uniform": 1.2666625643398448,
+  "mark_hit_gt0p1": 1.0
+ }
+}

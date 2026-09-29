@@ -1,0 +1,37 @@
+== inputs (user data) | model = V2 | seed = 1 ==
+grid 40x40 = 1600 cells, 2 outlets, 2 shelters, pop 16000
+storm: peak 87 mm/h, total 479 mm over 12.0 h
+hypergraph: 1600 vertices, 3048 hyperedges
+physics params: D=1.6 lam=0.01 k_dir=1 depth_scale=0.1000
+
+== training SHPINN (V2, 1 epochs) ==
+  epoch     0: pde-residual loss = 0.023526  lr = 0.00400
+training wall time: 11.8 s
+
+== depth vs RK4 ground truth (held-out times, 24 of them) ==
+  t=0.75 h: RMSE 0.0018 m   (max true depth 0.003 m)
+  t=1.75 h: RMSE 0.0100 m   (max true depth 0.026 m)
+  t=2.75 h: RMSE 0.0256 m   (max true depth 0.085 m)
+  t=3.75 h: RMSE 0.0493 m   (max true depth 0.192 m)
+  t=4.75 h: RMSE 0.0818 m   (max true depth 0.365 m)
+  t=5.75 h: RMSE 0.1209 m   (max true depth 0.612 m)
+  t=6.75 h: RMSE 0.1588 m   (max true depth 0.919 m)
+  t=7.75 h: RMSE 0.1943 m   (max true depth 1.267 m)
+  t=8.75 h: RMSE 0.2266 m   (max true depth 1.640 m)
+  t=9.75 h: RMSE 0.2552 m   (max true depth 2.021 m)
+  t=10.75 h: RMSE 0.2797 m   (max true depth 2.391 m)
+  t=11.75 h: RMSE 0.3005 m   (max true depth 2.733 m)
+
+held-out RMSE 0.1706 m (6.2% of max true depth), NSE -0.464
+peak-depth RMSE 0.3105 m, bias -0.1923 m; flood extent (>0.15 m): truth 610 cells, model 0 cells, CSI 0.000, POD 0.000, FAR NaN, accuracy 61.9%
+corr(elevation, peak depth) in truth model = -0.38
+
+== evacuation (depth limit 0.15 m, 0.30 min/cell = 20 km/h over 100 m cells; routing 41.8s) ==
+population in scope 15960; window closes within horizon for: truth 11600, model 0
+window-close agreement within 15 min: 436/1596 cells (27.3% of population); pop-weighted mean |diff| where both close: NaN min
+unsafe errors (forecast later/never vs truth closes): 11600 people; over-cautious errors: 0 people
+
+earliest-closing evacuation windows (model | truth):
+  cell(r,c)   pop   closes_h  truth_h  travel_min@t0
+
+FAIL: held-out RMSE 0.1706 m (tol 5% of max true depth 2.813 m = 0.1407), extent accuracy 61.9% (tol 90%), scenario floods & cuts routes: true

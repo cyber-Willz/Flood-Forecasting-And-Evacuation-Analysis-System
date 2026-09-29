@@ -1,0 +1,52 @@
+== inputs (user data) | model = V2 | seed = 1 ==
+grid 21x31 = 651 cells, 2 outlets, 3 shelters, pop 23596
+storm: peak 130 mm/h, total 292 mm over 6.0 h
+hypergraph: 651 vertices, 1214 hyperedges
+physics params: D=0.35 lam=0.06 k_dir=0.5 depth_scale=0.4004
+
+== training SHPINN (V2, 3000 epochs) ==
+  epoch     0: pde-residual loss = 0.007308  lr = 0.00400
+  epoch   375: pde-residual loss = 0.005318  lr = 0.00385
+  epoch   750: pde-residual loss = 0.002293  lr = 0.00343
+  epoch  1125: pde-residual loss = 0.002551  lr = 0.00280
+  epoch  1500: pde-residual loss = 0.001955  lr = 0.00205
+  epoch  1875: pde-residual loss = 0.001745  lr = 0.00130
+  epoch  2250: pde-residual loss = 0.001509  lr = 0.00067
+  epoch  2625: pde-residual loss = 0.001385  lr = 0.00025
+  epoch  2999: pde-residual loss = 0.001571  lr = 0.00010
+training wall time: 609.5 s
+
+== depth vs RK4 ground truth (held-out times, 12 of them) ==
+  t=0.75 h: RMSE 0.0012 m   (max true depth 0.002 m)
+  t=1.75 h: RMSE 0.0168 m   (max true depth 0.064 m)
+  t=2.75 h: RMSE 0.0305 m   (max true depth 0.257 m)
+  t=3.75 h: RMSE 0.0435 m   (max true depth 0.543 m)
+  t=4.75 h: RMSE 0.0576 m   (max true depth 0.832 m)
+  t=5.75 h: RMSE 0.0668 m   (max true depth 1.075 m)
+
+held-out RMSE 0.0401 m (3.7% of max true depth), NSE 0.815
+peak-depth RMSE 0.0691 m, bias -0.0321 m; flood extent (>0.15 m): truth 236 cells, model 174 cells, CSI 0.715, POD 0.725, FAR 0.017, accuracy 89.6%
+corr(elevation, peak depth) in truth model = -0.38
+
+== evacuation (depth limit 0.15 m, 1.53 min/cell = 20 km/h over 510 m cells; routing 3.2s) ==
+population in scope 23472; window closes within horizon for: truth 18605, model 8578
+window-close agreement within 15 min: 151/646 cells (29.3% of population); pop-weighted mean |diff| where both close: 33.5 min
+unsafe errors (forecast later/never vs truth closes): 16586 people; over-cautious errors: 6 people
+
+earliest-closing evacuation windows (model | truth):
+  cell(r,c)   pop   closes_h  truth_h  travel_min@t0
+  (4,26)        5     2.58     2.33     36.4
+  (9,13)      139     2.67     2.33     21.2
+  (1,16)        4     2.67     2.67     24.3
+  (7,0)       81     2.75     2.50      7.6
+  (4,4)      128     2.83     2.50      3.0
+  (2,9)       80     2.83     2.50     13.7
+  (3,12)       64     2.83     2.50     16.7
+  (18,30)        5     2.83     2.50     45.7
+
+FAIL: held-out RMSE 0.0401 m (tol 5% of max true depth 1.129 m = 0.0565), extent accuracy 89.6% (tol 90%), scenario floods & cuts routes: true
+
+== agreement with reference flood-prone mask (136 cells) ==
+  v0.2 default physics (RK4):  AUC 0.811  matched-prev CSI 0.340  CSI@0.15m 0.324 POD 0.904 FAR 0.665
+  this run's physics   (RK4):  AUC 0.862  matched-prev CSI 0.409  CSI@0.15m 0.409 POD 0.794 FAR 0.542
+  this run's SHPINN surrogate: AUC 0.782  matched-prev CSI 0.353  CSI@0.15m 0.372 POD 0.618 FAR 0.517

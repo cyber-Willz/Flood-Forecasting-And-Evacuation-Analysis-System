@@ -1,0 +1,30 @@
+{
+ "Kerrville 08166200|2026 (gauge crest, provisional)": {
+  "obs": 497.18976000000004,
+  "ground": 493.432,
+  "stage": 9.16228799999999,
+  "v02": 0.131,
+  "cal": 0.329
+ },
+ "Kerrville 08166200|2025 (nearest HWM)": {
+  "obs": 499.08,
+  "ground": 493.432,
+  "stage": 11.052527999999938,
+  "v02": 0.079,
+  "cal": 0.193
+ },
+ "Center Point 08166250|2026 (gauge crest, provisional)": {
+  "obs": 477.76790400000004,
+  "ground": 477.656,
+  "stage": 11.564112000000023,
+  "v02": 0.127,
+  "cal": 0.379
+ },
+ "Center Point 08166250|2025 (nearest HWM)": {
+  "obs": 478.38,
+  "ground": 477.656,
+  "stage": 12.176207999999974,
+  "v02": 0.076,
+  "cal": 0.232
+ }
+}

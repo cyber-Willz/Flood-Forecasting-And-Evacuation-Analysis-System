@@ -1,0 +1,113 @@
+//! SHPINN training for the runoff PDE in [`crate::truth`].
+//!
+//! Network input: `[Laplacian-eigenmap coords (k), tau]` with `tau = t/T`.
+//! Residual (interior cells, in `1/h` units):
+//! `(ds/dtau)/T + D*Delta s + lam*s - w*q(t)`, built from
+//! `shpinn::physics::heat_residual` plus the loss and source terms.
+
+use burn::backend::{Autodiff, NdArray};
+use burn::optim::{AdamConfig, GradientsParams, Optimizer};
+use burn::tensor::backend::Backend;
+use burn::tensor::Tensor;
+
+use shpinn::embedding::laplacian_eigenmap;
+use shpinn::loss::{boundary_mask, shpinn_loss};
+use shpinn::operator::dense_laplacian_tensor;
+use shpinn::physics::{central_time_derivative, heat_residual};
+use shpinn::pinn::{Shpinn, ShpinnConfig};
+use spectral_hypergraph::SpectralHypergraph;
+
+use crate::catchment::Catchment;
+use crate::rainfall::Rainfall;
+use crate::truth::{source, Params};
+
+pub type Be = Autodiff<NdArray<f32>>;
+
+pub struct TrainCfg {
+    pub k_embed: usize,
+    pub hidden: Vec<usize>,
+    pub epochs: usize,
+    pub lr: f64,
+    pub data_weight: f64,
+    pub physics_weight: f64,
+    pub train_step_h: f64,
+    pub t_end: f64,
+}
+
+impl Default for TrainCfg {
+    fn default() -> Self {
+        TrainCfg { k_embed: 6, hidden: vec![48, 48], epochs: 4000, lr: 0.004, data_weight: 20.0, physics_weight: 1.0, train_step_h: 0.5, t_end: 6.0 }
+    }
+}
+
+pub struct FloodNet {
+    pub net: Shpinn<Be>,
+    coords: Tensor<Be, 2>,
+    device: <Be as Backend>::Device,
+    n: usize,
+    t_end: f64,
+    depth_scale: f64,
+}
+
+fn with_tau(coords: &Tensor<Be, 2>, n: usize, tau: f64, dev: &<Be as Backend>::Device) -> Tensor<Be, 2> {
+    let col = Tensor::<Be, 1>::from_floats(vec![tau as f32; n].as_slice(), dev).reshape([n, 1]);
+    Tensor::cat(vec![coords.clone(), col], 1)
+}
+
+fn col_tensor(v: &[f64], dev: &<Be as Backend>::Device) -> Tensor<Be, 2> {
+    let f: Vec<f32> = v.iter().map(|&x| x as f32).collect();
+    Tensor::<Be, 1>::from_floats(f.as_slice(), dev).reshape([v.len(), 1])
+}
+
+pub fn train(cat: &Catchment, hg: &SpectralHypergraph, w: &[f64], rain: &Rainfall, p: &Params, cfg: &TrainCfg, log_every: usize) -> Result<FloodNet, String> {
+    let dev = <Be as Backend>::Device::default();
+    let n = cat.n();
+    let coords = laplacian_eigenmap(hg, cfg.k_embed).map_err(|e| e.to_string())?.to_tensor::<Be>(&dev);
+    let lap = dense_laplacian_tensor::<Be>(hg, &dev).map_err(|e| e.to_string())?;
+
+    let outlets = cat.outlets();
+    let all: Vec<usize> = (0..n).collect();
+    let ic_mask = boundary_mask::<Be>(n, &all, &dev).map_err(|e| e.to_string())?;
+    let out_mask = boundary_mask::<Be>(n, &outlets, &dev).map_err(|e| e.to_string())?;
+    let interior = Tensor::<Be, 2>::ones([n, 1], &dev) - out_mask.clone();
+    let zero = Tensor::<Be, 2>::zeros([n, 1], &dev);
+
+    let nt = (cfg.t_end / cfg.train_step_h).round() as usize;
+    let times: Vec<f64> = (0..=nt).map(|k| k as f64 * cfg.train_step_h).collect();
+    let src: Vec<Tensor<Be, 2>> = times.iter().map(|&t| col_tensor(source(cat, w, rain, t, p).as_slice(), &dev)).collect();
+
+    let mut net = ShpinnConfig::new(cfg.k_embed + 1, cfg.hidden.clone(), 1).init::<Be>(&dev);
+    let mut opt = AdamConfig::new().init();
+    let eps = 1e-3;
+
+    for epoch in 0..cfg.epochs {
+        let mut loss = Tensor::<Be, 1>::zeros([1], &dev);
+        for (j, &t) in times.iter().enumerate() {
+            let tau = t / cfg.t_end;
+            let u = net.forward(with_tau(&coords, n, tau, &dev));
+            let up = net.forward(with_tau(&coords, n, tau + eps, &dev));
+            let um = net.forward(with_tau(&coords, n, tau - eps, &dev));
+            let u_t = central_time_derivative::<Be>(up, um, eps) / cfg.t_end;
+            let resid = (heat_residual::<Be>(&lap, u.clone(), u_t, p.d) + u.clone() * p.lam - src[j].clone()) * interior.clone();
+            let mask = if j == 0 { &ic_mask } else { &out_mask };
+            loss = loss + shpinn_loss::<Be>(u, &zero, mask, resid, cfg.data_weight, cfg.physics_weight);
+        }
+        if log_every > 0 && (epoch % log_every == 0 || epoch + 1 == cfg.epochs) {
+            let v: f32 = loss.clone().into_scalar();
+            println!("  epoch {epoch:5}: loss = {v:.6}");
+        }
+        let g = GradientsParams::from_grads(loss.backward(), &net);
+        net = opt.step(cfg.lr, net, g);
+    }
+    Ok(FloodNet { net, coords, device: dev, n, t_end: cfg.t_end, depth_scale: p.depth_scale })
+}
+
+impl FloodNet {
+    /// Predicted depth in metres per cell at `t_hours` (clamped at 0: the
+    /// unconstrained network can undershoot slightly; physics forbids <0).
+    pub fn predict(&self, t_hours: f64) -> Vec<f64> {
+        let tau = t_hours / self.t_end;
+        let u = self.net.forward(with_tau(&self.coords, self.n, tau, &self.device)).into_data().convert::<f32>();
+        u.value.iter().map(|&v| (v as f64 * self.depth_scale).max(0.0)).collect()
+    }
+}

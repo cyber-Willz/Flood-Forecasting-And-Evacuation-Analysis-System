@@ -1,0 +1,46 @@
+== inputs (user data) | model = Legacy | seed = 1 ==
+grid 21x31 = 651 cells, 2 outlets, 3 shelters, pop 23596
+storm: peak 130 mm/h, total 292 mm over 6.0 h
+hypergraph: 651 vertices, 1214 hyperedges
+
+== training SHPINN (Legacy, 1200 epochs) ==
+  epoch     0: loss = 24.335939
+  epoch   150: loss = 1.837974
+  epoch   300: loss = 1.731179
+  epoch   450: loss = 1.234415
+  epoch   600: loss = 0.872257
+  epoch   750: loss = 0.701872
+  epoch   900: loss = 0.438055
+  epoch  1050: loss = 0.342741
+  epoch  1199: loss = 0.290184
+training wall time: 426.3 s
+
+== depth vs RK4 ground truth (held-out times, 12 of them) ==
+  t=0.75 h: RMSE 0.0048 m   (max true depth 0.002 m)
+  t=1.75 h: RMSE 0.0109 m   (max true depth 0.043 m)
+  t=2.75 h: RMSE 0.0294 m   (max true depth 0.132 m)
+  t=3.75 h: RMSE 0.0432 m   (max true depth 0.197 m)
+  t=4.75 h: RMSE 0.0456 m   (max true depth 0.212 m)
+  t=5.75 h: RMSE 0.0415 m   (max true depth 0.196 m)
+
+held-out RMSE 0.0322 m (15.2% of max true depth), NSE 0.740
+peak-depth RMSE 0.0454 m, bias -0.0153 m; flood extent (>0.15 m): truth 368 cells, model 235 cells, CSI 0.343, POD 0.418, FAR 0.345, accuracy 54.7%
+corr(elevation, peak depth) in truth model = -0.26
+
+== evacuation (depth limit 0.15 m, 1.53 min/cell = 20 km/h over 510 m cells; routing 2.0s) ==
+population in scope 23472; window closes within horizon for: truth 23472, model 23472
+window-close agreement within 15 min: 624/646 cells (93.9% of population); pop-weighted mean |diff| where both close: 7.7 min
+unsafe errors (forecast later/never vs truth closes): 1423 people; over-cautious errors: 14 people
+
+earliest-closing evacuation windows (model | truth):
+  cell(r,c)   pop   closes_h  truth_h  travel_min@t0
+  (14,30)       66     2.08     2.17     52.5
+  (13,30)        5     2.08     2.17     54.1
+  (14,29)      118     2.17     2.17     50.8
+  (15,29)       75     2.17     2.17     49.2
+  (15,30)       74     2.17     2.17     50.8
+  (0,30)        5     2.17     2.08     45.9
+  (13,27)        5     2.17     2.33     49.3
+  (13,28)        5     2.17     2.25     50.9
+
+FAIL: held-out RMSE 0.0322 m (tol 5% of max true depth 0.213 m = 0.0106), extent accuracy 54.7% (tol 90%), scenario floods & cuts routes: true

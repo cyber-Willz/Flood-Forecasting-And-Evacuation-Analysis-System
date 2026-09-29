@@ -1,0 +1,8 @@
+k05 0 --k-dir 0.5
+cal 0 --k-dir 1 --d 1.6 --lam 0.01
+k05 1 --k-dir 0.5
+cal 1 --k-dir 1 --d 1.6 --lam 0.01
+k05 2 --k-dir 0.5
+cal 2 --k-dir 1 --d 1.6 --lam 0.01
+k05 3 --k-dir 0.5
+cal 3 --k-dir 1 --d 1.6 --lam 0.01

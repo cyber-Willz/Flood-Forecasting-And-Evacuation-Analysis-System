@@ -1,0 +1,6 @@
+w0: Q=8892 m3/s stage 9.59 m (oracle 9.48) | WSE err old-style bias +2.02 rmse 2.70 | surface bias +0.11 rmse 2.58 | zero-depth rmse 3.13 | uniform-oracle floor 2.58 | AUC model 0.977 lowelev 0.980 | CSI 0.67 POD 0.95 FAR 0.31 | mark-rank 0.65
+w1: Q=6828 m3/s stage 9.78 m (oracle 9.18) | WSE err old-style bias +0.90 rmse 1.43 | surface bias +0.60 rmse 1.34 | zero-depth rmse 3.88 | uniform-oracle floor 1.20 | AUC model 0.964 lowelev 0.955 | CSI 0.51 POD 0.95 FAR 0.48 | mark-rank 0.69
+w2: Q=7745 m3/s stage 8.97 m (oracle 7.15) | WSE err old-style bias +3.48 rmse 4.99 | surface bias +1.82 rmse 2.23 | zero-depth rmse 4.65 | uniform-oracle floor 1.28 | AUC model 0.996 lowelev 0.975 | CSI 0.54 POD 1.00 FAR 0.46 | mark-rank 0.76
+w3: Q=7228 m3/s stage 10.95 m (oracle 8.03) | WSE err old-style bias +2.92 rmse 3.04 | surface bias +2.92 rmse 3.04 | zero-depth rmse 2.56 | uniform-oracle floor 0.85 | AUC model 0.994 lowelev 0.976 | CSI 0.43 POD 1.00 FAR 0.57 | mark-rank 0.76
+w4: Q=6476 m3/s stage 8.02 m (oracle 8.16) | WSE err old-style bias +0.20 rmse 1.16 | surface bias -0.14 rmse 1.27 | zero-depth rmse 2.87 | uniform-oracle floor 1.27
+gauges: {"Kerrville 08166200": {"cell": [3, 7], "bed_near": 489.316, "ground": 493.432, "wse_pred": 499.099}, "Center Point 08166250": {"cell": [19, 19], "bed_near": 469.07, "ground": 477.656, "wse_pred": 477.089}}

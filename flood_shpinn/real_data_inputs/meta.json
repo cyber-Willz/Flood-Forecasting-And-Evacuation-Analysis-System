@@ -1,0 +1,53 @@
+{
+ "source": "https://raw.githubusercontent.com/mdbartos/pysheds/master/data/dem.tif",
+ "sha256": "b6ed6303945b0d85b59c314df8a265c91a85b9768dc70dff3c5df35970e49b6b",
+ "native_shape": [
+  359,
+  367
+ ],
+ "crop": [
+  0,
+  126,
+  181,
+  367
+ ],
+ "block": 6,
+ "grid": [
+  21,
+  31
+ ],
+ "cell_m": 510.4,
+ "elev_min": 147.44444444444446,
+ "elev_max": 212.36111111111111,
+ "pop_total": 23596.1,
+ "outlets": [
+  [
+   7,
+   30
+  ],
+  [
+   6,
+   30
+  ]
+ ],
+ "shelters": [
+  [
+   19,
+   1
+  ],
+  [
+   0,
+   1
+  ],
+  [
+   5,
+   3
+  ]
+ ],
+ "bounds": {
+  "left": -97.33416666666278,
+  "right": -97.17916666666278,
+  "top": 32.82166666666536,
+  "bottom": 32.71666666666536
+ }
+}

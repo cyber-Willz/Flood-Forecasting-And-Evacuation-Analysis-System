@@ -1,0 +1,46 @@
+== inputs (user data) | model = V2 | seed = 2 ==
+grid 21x31 = 651 cells, 2 outlets, 3 shelters, pop 23596
+storm: peak 130 mm/h, total 292 mm over 6.0 h
+hypergraph: 651 vertices, 1214 hyperedges
+
+== training SHPINN (V2, 3000 epochs) ==
+  epoch     0: pde-residual loss = 0.104560  lr = 0.00400
+  epoch   375: pde-residual loss = 0.001360  lr = 0.00385
+  epoch   750: pde-residual loss = 0.000572  lr = 0.00343
+  epoch  1125: pde-residual loss = 0.000468  lr = 0.00280
+  epoch  1500: pde-residual loss = 0.000879  lr = 0.00205
+  epoch  1875: pde-residual loss = 0.000387  lr = 0.00130
+  epoch  2250: pde-residual loss = 0.000328  lr = 0.00067
+  epoch  2625: pde-residual loss = 0.000299  lr = 0.00025
+  epoch  2999: pde-residual loss = 0.000474  lr = 0.00010
+training wall time: 412.0 s
+
+== depth vs RK4 ground truth (held-out times, 12 of them) ==
+  t=0.75 h: RMSE 0.0009 m   (max true depth 0.002 m)
+  t=1.75 h: RMSE 0.0012 m   (max true depth 0.043 m)
+  t=2.75 h: RMSE 0.0016 m   (max true depth 0.132 m)
+  t=3.75 h: RMSE 0.0021 m   (max true depth 0.197 m)
+  t=4.75 h: RMSE 0.0022 m   (max true depth 0.212 m)
+  t=5.75 h: RMSE 0.0025 m   (max true depth 0.196 m)
+
+held-out RMSE 0.0018 m (0.8% of max true depth), NSE 0.999
+peak-depth RMSE 0.0022 m, bias +0.0003 m; flood extent (>0.15 m): truth 368 cells, model 372 cells, CSI 0.963, POD 0.986, FAR 0.024, accuracy 97.8%
+corr(elevation, peak depth) in truth model = -0.26
+
+== evacuation (depth limit 0.15 m, 1.53 min/cell = 20 km/h over 510 m cells; routing 2.0s) ==
+population in scope 23472; window closes within horizon for: truth 23472, model 23472
+window-close agreement within 15 min: 646/646 cells (100.0% of population); pop-weighted mean |diff| where both close: 2.4 min
+unsafe errors (forecast later/never vs truth closes): 0 people; over-cautious errors: 0 people
+
+earliest-closing evacuation windows (model | truth):
+  cell(r,c)   pop   closes_h  truth_h  travel_min@t0
+  (3,30)       71     2.00     2.08     44.2
+  (1,30)       69     2.00     2.00     45.6
+  (2,30)       42     2.00     2.08     45.8
+  (4,30)      127     2.08     2.08     42.6
+  (4,29)      117     2.08     2.08     41.1
+  (4,28)      103     2.08     2.17     39.6
+  (3,29)       84     2.08     2.08     42.6
+  (1,28)       70     2.08     2.08     42.5
+
+PASS: held-out RMSE 0.0018 m (tol 5% of max true depth 0.213 m = 0.0106), extent accuracy 97.8% (tol 90%), scenario floods & cuts routes: true

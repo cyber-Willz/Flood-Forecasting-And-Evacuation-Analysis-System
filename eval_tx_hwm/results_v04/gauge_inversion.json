@@ -1,0 +1,50 @@
+[
+ {
+  "gauge": "Center Point",
+  "label": "2025 crest 39.61 ft (Kerr Co. Lead)",
+  "ft": 39.61,
+  "wse": 478.27692,
+  "stage": 9.206920000000025,
+  "q": 8598.793792000028
+ },
+ {
+  "gauge": "Center Point",
+  "label": "2026 crest 37.94 ft (NOAA via Spectrum)",
+  "ft": 37.94,
+  "wse": 477.76790400000004,
+  "stage": 8.697904000000051,
+  "q": 7708.242329600114
+ },
+ {
+  "gauge": "Center Point",
+  "label": "2026 crest 38.73 ft (Kerr Co. Lead)",
+  "ft": 38.73,
+  "wse": 478.00869600000004,
+  "stage": 8.93869600000005,
+  "q": 8149.258492800145
+ },
+ {
+  "gauge": "Kerrville",
+  "label": "2025 crest 34.29 ft (USGS prelim)",
+  "ft": 34.29,
+  "wse": 498.47906400000005,
+  "stage": 9.163064000000077,
+  "q": 6206.768286400126
+ },
+ {
+  "gauge": "Kerrville",
+  "label": "2026 ~17 ft (CNN/Texas Tribune, morning peak)",
+  "ft": 17.0,
+  "wse": 493.20907200000005,
+  "stage": 3.8930720000000747,
+  "q": 1171.6454240000462
+ },
+ {
+  "gauge": "Kerrville",
+  "label": "2026 30.06 ft (earlier addendum, unsourced here)",
+  "ft": 30.06,
+  "wse": 497.18976000000004,
+  "stage": 7.873760000000061,
+  "q": 4725.021120000068
+ }
+]

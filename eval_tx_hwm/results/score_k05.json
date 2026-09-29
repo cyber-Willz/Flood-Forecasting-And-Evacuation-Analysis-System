@@ -1,0 +1,102 @@
+{
+ "0": {
+  "cells_scope": 1050,
+  "ref_wet": 314,
+  "prev": 0.29904761904761906,
+  "AUC": {
+   "physics_peak_depth": 0.7764426405427859,
+   "low_elevation": 0.9795416782054832,
+   "HAND9": 0.9873130711714206,
+   "local_relief": 0.8500977914705068
+  },
+  "mark_rank": {
+   "physics_peak_depth": 0.6180357142857142,
+   "low_elevation": 0.7266071428571428,
+   "HAND9": 0.7069047619047619,
+   "local_relief": 0.6474404761904762
+  },
+  "marks": 16,
+  "wse_bias_phys": 0.10149371337889335,
+  "wse_rmse_phys": 3.1213891563103573,
+  "wse_rmse_zero_depth": 3.1323926560741815,
+  "peak_depth_max": 1.078,
+  "peak_depth_p99": 0.5693699999999996,
+  "mark_hit_gt0p1m": 0.1875,
+  "wet_cells_gt0p1": 306
+ },
+ "1": {
+  "cells_scope": 897,
+  "ref_wet": 225,
+  "prev": 0.2508361204013378,
+  "AUC": {
+   "physics_peak_depth": 0.752800925925926,
+   "low_elevation": 0.9547949735449736,
+   "HAND9": 0.906712962962963,
+   "local_relief": 0.8329563492063492
+  },
+  "mark_rank": {
+   "physics_peak_depth": 0.5681902638424378,
+   "low_elevation": 0.7190635451505016,
+   "HAND9": 0.654180602006689,
+   "local_relief": 0.59702712746191
+  },
+  "marks": 15,
+  "wse_bias_phys": -1.9230396404622563,
+  "wse_rmse_phys": 3.8007078371788667,
+  "wse_rmse_zero_depth": 3.8839431383172203,
+  "peak_depth_max": 0.99,
+  "peak_depth_p99": 0.5011599999999998,
+  "mark_hit_gt0p1m": 0.26666666666666666,
+  "wet_cells_gt0p1": 327
+ },
+ "2": {
+  "cells_scope": 730,
+  "ref_wet": 158,
+  "prev": 0.21643835616438356,
+  "AUC": {
+   "physics_peak_depth": 0.8208318580154024,
+   "low_elevation": 0.9753363724882712,
+   "HAND9": 0.9836682305036736,
+   "local_relief": 0.9007147915375764
+  },
+  "mark_rank": {
+   "physics_peak_depth": 0.5549190535491906,
+   "low_elevation": 0.7189290161892902,
+   "HAND9": 0.6958904109589041,
+   "local_relief": 0.5911581569115817
+  },
+  "marks": 11,
+  "wse_bias_phys": 1.7954093667879698,
+  "wse_rmse_phys": 4.678099499985739,
+  "wse_rmse_zero_depth": 4.6501597355856354,
+  "peak_depth_max": 1.279,
+  "peak_depth_p99": 0.5560200000000001,
+  "mark_hit_gt0p1m": 0.09090909090909091,
+  "wet_cells_gt0p1": 302
+ },
+ "3": {
+  "cells_scope": 716,
+  "ref_wet": 155,
+  "prev": 0.2164804469273743,
+  "AUC": {
+   "physics_peak_depth": 0.8567362428842504,
+   "low_elevation": 0.9757460755563222,
+   "HAND9": 0.9743775516071531,
+   "local_relief": 0.8882755448220344
+  },
+  "mark_rank": {
+   "physics_peak_depth": 0.5547486033519553,
+   "low_elevation": 0.762709497206704,
+   "HAND9": 0.7153631284916201,
+   "local_relief": 0.5761173184357542
+  },
+  "marks": 10,
+  "wse_bias_phys": -0.7549229475097832,
+  "wse_rmse_phys": 2.537745245189926,
+  "wse_rmse_zero_depth": 2.5629732246454844,
+  "peak_depth_max": 1.087,
+  "peak_depth_p99": 0.5150999999999999,
+  "mark_hit_gt0p1m": 0.0,
+  "wet_cells_gt0p1": 285
+ }
+}

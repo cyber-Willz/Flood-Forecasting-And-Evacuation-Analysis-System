@@ -1,0 +1,7 @@
+[
+  {"id":0,"length_m":4921,"slope":0.00244,"sinuosity":1.157,"gap_from_prev_m":0,"q_peak_m3s":8186.0,"t_peak_h":4.70,"stage_peak_m":9.084,"wse_mid_thalweg_m":538.89,"wet_cells_gt0p1":576,"pluvial_peak_max_m":1.669,"volume_m3":35963767,"router":"d1d","mass_closure":-0.000000},
+  {"id":2,"length_m":4273,"slope":0.00277,"sinuosity":1.078,"gap_from_prev_m":4646,"q_peak_m3s":6915.5,"t_peak_h":5.40,"stage_peak_m":7.538,"wse_mid_thalweg_m":517.02,"wet_cells_gt0p1":542,"pluvial_peak_max_m":2.419,"volume_m3":36163287,"router":"d1d","mass_closure":-0.000000},
+  {"id":3,"length_m":4438,"slope":0.00156,"sinuosity":1.109,"gap_from_prev_m":1241,"q_peak_m3s":6264.3,"t_peak_h":5.90,"stage_peak_m":10.200,"wse_mid_thalweg_m":505.80,"wet_cells_gt0p1":529,"pluvial_peak_max_m":2.277,"volume_m3":36285821,"router":"d1d","mass_closure":-0.000000},
+  {"id":1,"length_m":5694,"slope":0.00266,"sinuosity":1.134,"gap_from_prev_m":881,"q_peak_m3s":5686.3,"t_peak_h":6.35,"stage_peak_m":7.989,"wse_mid_thalweg_m":492.64,"wet_cells_gt0p1":561,"pluvial_peak_max_m":1.690,"volume_m3":36420931,"router":"d1d","mass_closure":-0.000000},
+  {"id":4,"length_m":4987,"slope":0.00253,"sinuosity":1.161,"gap_from_prev_m":2926,"q_peak_m3s":5152.4,"t_peak_h":7.00,"stage_peak_m":8.218,"wse_mid_thalweg_m":477.30,"wet_cells_gt0p1":561,"pluvial_peak_max_m":1.718,"volume_m3":36560298,"router":"d1d","mass_closure":-0.000000}
+]
