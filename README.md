@@ -155,9 +155,4 @@ cargo run --release -p flood_shpinn --example flood_demo -- \
 - The neural SHPINN has not been retrained or evaluated on the river layer; earlier reports found the v0.3 options did not improve the surrogate.
 - Evacuation outputs are not produced by the river layer.
 
-## 7. Roadmap (from the evaluation reports)
 
-1. Lateral (tributary / rain-on-channel) inflow — required to reproduce the July 2026 event.
-2. Ineffective-flow (dead-water) storage and a gauge-constrained discharge term in the calibration loss.
-3. Higher-resolution DEM and hydro-conditioning.
-4. Retrain the SHPINN as a residual correction on top of the physics solver, rather than as its replacement.
